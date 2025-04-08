@@ -1,138 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Solar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: #121212;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      color: white;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .top-bar {
-      width: 868px;
-      height: 58px;
-      background: #2C2C2C;
-      border-radius: 100px;
-      box-shadow: 0 4px 4px 5px rgba(0, 0, 0, 0.25);
-      margin-bottom: 30px;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 1s;
+        }
 
-    .badge {
-      background: #2C2C2C;
-      border-radius: 100px;
-      box-shadow: 0 4px 4px 5px rgba(0, 0, 0, 0.25);
-      padding: 4px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-    .badge img {
-      width: 25px;
-      height: 25px;
-    }
+        .center-content {
+            text-align: center;
+            transform: translateY(10px);
+            animation: woosh 1s forwards;
+        }
 
-    .badge span {
-      font-size: 16px;
-      font-weight: 800;
-    }
+        @keyframes woosh {
+            0% {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-    .title {
-      font-size: 64px;
-      font-weight: 800;
-      text-align: center;
-      line-height: 64px;
-      margin: 0;
-      background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: #2C2C2C;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            border-radius: 100px;
+            box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.25);
+            margin-bottom: 5px;
+        }
 
-    .subtitle {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-align: center;
-      margin-top: 12px;
-      margin-bottom: 28px;
-    }
+        .badge img {
+            width: 30px;
+            height: 30px;
+        }
 
-    .button-container {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 48px;
-    }
+        .gradient-text {
+            font-size: 80px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 20px;
-      font-size: 18px;
-      font-weight: 800;
-      color: white;
-      text-decoration: none;
-      background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
+        .subtext {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
 
-    .button img {
-      height: 24px;
-      width: auto;
-    }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
 
-    .why-section {
-      font-size: 48px;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.2;
-    }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
+            border-radius: 20px;
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            height: 50px;
+        }
 
-    .highlight {
-      background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  </style>
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .why {
+            margin-top: 120px;
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-align: center;
+            transform: translateY(10px);
+            animation: woosh 1s forwards;
+            opacity: 0;
+        }
+
+        .why .highlight {
+            background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="top-bar"></div>
+    <canvas id="particles"></canvas>
 
-  <div class="badge">
-    <img src="https://placehold.co/25x25" alt="Gear Icon" />
-    <span>Server-Side</span>
-  </div>
+    <div class="center-content">
+        <div class="badge">
+            <img src="https://cdn.discordapp.com/attachments/1353535455747903539/1359020255917379634/icons8-sun-30.png?ex=67f5f5be&is=67f4a43e&hm=0612de4dbff095b3dd8e7ffe987ac14a1620790e5541702d23cf848909a10686" alt="Server-Side Icon" />
+            Server-Side
+        </div>
 
-  <h1 class="title">Welcome To Solar</h1>
-  <p class="subtitle">Harnessing the power of server-side for limitless potential.</p>
+        <div class="gradient-text">Welcome To Solar</div>
 
-  <div class="button-container">
-    <a href="#" class="button">
-      <img src="https://placehold.co/29x28" alt="Coin Icon" />
-      Get Solar!
-    </a>
-    <a href="#" class="button">
-      <img src="https://placehold.co/35x35" alt="Discord Icon" />
-      Join Discord
-    </a>
-  </div>
+        <div class="subtext">
+            Harnessing the power of server-side for limitless potential.
+        </div>
 
-  <div class="why-section">
-    Why you should use <span class="highlight">Solar</span>
-  </div>
+        <div class="button-group">
+            <a class="btn" href="#">
+                <img src="https://cdn.discordapp.com/attachments/1353535455747903539/1359020017848418474/icons8-universe-50.png?ex=67f5f585&is=67f4a405&hm=2ad6f607935b54033fec6b9531bdc1b7df10cb6301b72d359da1c96fdef83dd4" alt="Get Solar Icon" />
+                Get Solar!
+            </a>
+            <a class="btn" href="#">
+                <img src="https://cdn.discordapp.com/attachments/1353535455747903539/1359019643498532988/icons8-discord-30.png?ex=67f5f52c&is=67f4a3ac&hm=e24bf5a8c1881a3951538079e4a0d44be7ee455dfc635586811d700ab6e6ae82&" alt="Join Discord Icon" />
+                Join Discord
+            </a>
+        </div>
+    </div>
 
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+
+        for (let i = 0; i < 100; i++) {
+            const isWhite = Math.random() > 0.3;
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 0.5,
+                speedY: Math.random() * 1 + 0.3,
+                color: isWhite ? 'rgba(255,255,255,0.6)' : 'rgba(255, 165, 0, 0.4)'
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            }
+        }
+
+        function updateParticles() {
+            for (let p of particles) {
+                p.y += p.speedY;
+                if (p.y > canvas.height) {
+                    p.y = -10;
+                    p.x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        function animate() {
+            drawParticles();
+            updateParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('load', () => {
+            document.body.style.opacity = 1; 
+        });
+    </script>
 </body>
+
 </html>

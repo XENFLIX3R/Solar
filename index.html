@@ -22,8 +22,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start;
+            min-height: 100vh;
             opacity: 0;
             transition: opacity 1s;
         }
@@ -38,10 +38,72 @@
             pointer-events: none;
         }
 
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #111111;
+            padding: 0 20px;
+            height: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            font-size: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 5px;
+            transition: color 0.3s ease;
+            cursor: default;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
+            transition: width 0.3s ease, left 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            color: #FFC300;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-link.active {
+            color: #FFC300;
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+            left: 0;
+        }
+
         .center-content {
             text-align: center;
             transform: translateY(10px);
             animation: woosh 1s forwards;
+            margin-top: 15vh;
+            width: 100%;
         }
 
         @keyframes woosh {
@@ -123,26 +185,83 @@
             height: 30px;
         }
 
-        .why {
-            margin-top: 120px;
-            font-size: 56px;
-            font-weight: 800;
-            line-height: 1.2;
-            text-align: center;
-            transform: translateY(10px);
-            animation: woosh 1s forwards;
-            opacity: 0;
+        .stats-container {
+            width: 95%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            margin-top: 100px;
+            position: relative;
+            min-height: 140px;
         }
 
-        .why .highlight {
+        .stats-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             background: linear-gradient(90deg, #FFC300 0%, #FF8000 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            border-radius: 17px;
+            z-index: -1;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: #FFC300;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .gradient-text {
+                font-size: 50px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-link {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><span class="nav-link active">Home</span></li>
+            <li><span class="nav-link">Features</span></li>
+            <li><span class="nav-link">Scripts</span></li>
+            <li><span class="nav-link">Pricing</span></li>
+            <li><span class="nav-link">Support</span></li>
+        </ul>
+    </nav>
 
     <canvas id="particles"></canvas>
 
@@ -170,7 +289,30 @@
         </div>
     </div>
 
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Games Logged</div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Customer's Satisfaction</div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Scripts Executed</div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Scripts Library</div>
+        </div>
+    </div>
+
     <script>
+        // Particle animation
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
 
@@ -218,6 +360,7 @@
 
         animate();
 
+        // Event listeners
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -225,6 +368,15 @@
 
         window.addEventListener('load', () => {
             document.body.style.opacity = 1;
+        });
+
+        // Navigation hover effects
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
         });
     </script>
 </body>
